@@ -1,0 +1,152 @@
+Tab 补全
+删除文件夹并且不提示：rm -rf dangka_nn
+查看文件 ：ls
+进入文件 ：cd
+清除回收站：sudo rm -rf ~/.local/share/Trash/files/*
+清除窗口：screen -X -S session_id quit
+解压zip文件 unzip
+解压tar
+进入超管 sudo -i
+tar -zcvf /home/xahot.tar.gz /xahot
+tar -zcvf 打包后生成的文件名全路径 要打包的目录
+例子：把/xahot文件夹打包后生成一个/home/xahot.tar.gz的文件。
+先按下ESC退出编辑模式，然后输入：wq 保存并退出或者q退出或者q!强制退出，从而回到命令行界面。
+
+#查看磁盘信息： df -h
+#查看当前目录： du -sh
+df -hl 查看磁盘剩余空间
+ 
+df -h 查看每个根路径的分区大小
+ 
+du -sh [目录名] 返回该目录的大小
+ 
+du -sm [文件夹] 返回该文件夹总M数
+ 
+du -h [目录名] 查看指定文件夹下的所有文件大小（包含子文件夹
+
+挂载磁盘：
+LINUX所有的存储设备都是映射成“文件”来访问的，包括U盘、光驱、硬盘等，所以Centos系统下如果需要使用磁盘，需要把磁盘分区通过mount挂载，方法如下：
+
+    1、建一个目录（挂载磁盘分区）  
+    mkdir /mnt/sda1  
+    #通过mkdir命令创建文件夹  
+
+    2、挂载/dev/sda1分区  
+    mount /dev/sda1 /mnt/sda1  
+    #挂载/dev/sda1到/mnt/sda1目录下  
+
+    3、然后进入挂载分区目录即可  
+    cd /mnt/sda1  
+    #cd 命令进入该目录，就可以看到分区存放的文件了  
+
+取消挂载：umount /mnt/~
+
+
+
+
+环境变量： export
+echo $PATH
+
+.tar.gz文件解压: tar zxvf FileName.tar.gz
+
+gz文件解压：gzip -d 文件名
+
+zip 压缩方法：
+ 
+压缩当前的文件夹 zip -r ./xahot.zip ./* -r表示递归
+zip [参数] [打包后的文件名] [打包的目录路径]
+解压 unzip xahot.zip 不解释
+
+linux:多少位 getconf LONG_BIT  以及版本  cat /etc/redhat-release
+
+移动目录： mv 文件地址1  文件地址2    如果是移动文件夹下的所有文件的话就可以文件夹后面跟上 /*  mv /data/new/* /data/old/
+批量移动 mv *day* 文件  包含day的文件
+运行bash文件：  bash  文件.sh
+
+imagenet2012解压 训练集
+https://blog.csdn.net/Chinafsm/article/details/122549724
+mkdir train && mv ILSVRC2012_img_train.tar train/ && cd train
+tar -xvf ILSVRC2012_img_train.tar && rm -f ILSVRC2012_img_train.tar
+find . -name "*.tar" | while read NAME ; do mkdir -p "${NAME%.tar}"; tar -xvf "${NAME}" -C "${NAME%.tar}"; rm -f "${NAME}"; done
+cd ..
+
+验证集解压
+http://academictorrents.com/download/5d6d0df7ed81efd49ca99ea4737e0ae5e3a5f2e5.torrent----磁力链接
+wget https://raw.githubusercontent.com/soumith/imagenetloader.torch/master/valprep.sh
+md5校验： md5sum ILSVRC2012_img_val.tar
+mkdir val && tar -xvf ILSVRC2012_img_val.tar -C val && mv valprep.sh val && cd val && bash valprep.sh
+
+#查看是否是centos还是ubuntu
+lsb_release -a 
+
+【linux 下安装种子的工具】
+yum install aria2  #CentOS系统
+---------需要换源-----以163为例
+cd /etc/yum.repos.d
+mv CentOS-Base.repo CentOS-Base.repo.backup
+wget http://mirrors.163.com/.help/CentOS6-Base-163.repo
+mv CentOS6-Base-163.repo CentOS-Base.repo
+yum clean all
+yum处理： https://www.cnblogs.com/renpingsheng/p/7845096.html
+
+
+apt-get install aria2  #Debian/Ubuntu系统
+直链下载：aria2c http://xx.com/xx
+BT下载：aria2c ‘xxx.torrnet‘    aria2c '磁力链接'
+
+yum install aria2
+
+--------------------------------
+主账号进入后  ubuntu 
+退到上一级: cd .. 
+进入zhangfeng： cd zhangfeng
+cd zhangfeng
+--------------------------------
+
+windows通过命令行下载
+windows+r
+start powershell
+$client = new-object System.Net.WebClient
+$client.DownloadFile('#1', '#2')
+
+
+举例
+screen -S ziwei  
+
+找到自己要运行的文件，运行
+
+如果SSH链接断了，可以命令行
+screen -r ziwei
+找回，客户端连接断了，远程并没有断！
+screen -d hsx
+
+通过screen -ls 看所有窗口
+
+在当前screen内，通过exit退出窗口
+
+
+【python指令：】
+pip list --outdated
+pip install --upgrade 库名字
+更新pip python -m pip install --upgrade pip
+安装 shu~  pip install pytest-shutil
+yacs库：
+git clone https://github.com/rbgirshick/yacs.git
+python setup.py install
+安装指定版本的库 pip install name==？
+apex ：pip install -v --no-cache-dir ./
+【yaml】
+pip install --ignore-installed PyYAML
+【conda】
+删除源： conda config --remove-key channels
+查看源：conda config --get channels
+创建虚拟环境： conda create -n  [names]  python=[version]
+激活环境：source activate [names]
+失火环境：source deactivate
+【torchsummary】
+torch中用于可视化神经网路的库
+【torchsnooper】
+Pytorch有一个十分好用的工具–torchsnooper，在可能出现bug的函数前加一个声明，即可在运行过程中输出这个函数每行代码的所有信息。
+
+
+ 
